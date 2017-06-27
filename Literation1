@@ -1,0 +1,48 @@
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.stage.Stage;
+import javafx.scene.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField; //must now import this for the textfield
+import javafx.scene.layout.Pane;
+
+public class guilit1
+{
+
+    public static void main (String args[])//to start the GUI
+    {
+        launchFX();
+    }
+
+    private static void launchFX()
+    {
+        new JFXPanel();
+        Platform.runLater(() -> initialiseGUI());
+    }
+
+    private static void initialiseGUI()
+    {
+        Stage stage = new Stage();
+        stage.setTitle("Address book");
+        stage.setResizable(true);
+        Pane rootPane = new Pane();
+        stage.setScene(new Scene(rootPane));
+        stage.setWidth(1024);
+        stage.setHeight(768);
+        stage.show();
+        
+        Button btn = new Button();
+        btn.setText("Add");
+        btn.setLayoutX(50);
+        btn.setLayoutY(500);
+        btn.setOnAction((ActionEvent ae);
+        rootPane.getChildren().add(btn);
+
+        Button btn2 = new Button();
+        btn2.setText("Delete");
+        btn2.setLayoutX(50);
+        btn2.setLayoutY(550);
+        btn2.setOnAction((ActionEvent ae) -> deleteItem());
+        rootPane.getChildren().add(btn2);
+    }
+}
