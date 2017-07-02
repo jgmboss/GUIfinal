@@ -17,7 +17,7 @@ public class guilit1
     private static void launchFX()
     {
         new JFXPanel();
-        Platform.runLater(() -> initialiseGUI());
+        Platform.runLater(() -> initialiseGUI()); //Starts GUI
     }
 
     private static void initialiseGUI()
@@ -29,20 +29,20 @@ public class guilit1
         stage.setScene(new Scene(rootPane));
         stage.setWidth(1024);
         stage.setHeight(768);
-        stage.show();
+        stage.show(); //Whole thing for boarder of GUI and title 
         
         Button btn = new Button();
         btn.setText("Add");
         btn.setLayoutX(50);
         btn.setLayoutY(500);
         btn.setOnAction((ActionEvent ae);
-        rootPane.getChildren().add(btn);
+        rootPane.getChildren().add(btn); //Button that launches add function
 
         Button btn2 = new Button();
         btn2.setText("Delete");
         btn2.setLayoutX(50);
         btn2.setLayoutY(550);
         btn2.setOnAction((ActionEvent ae) -> deleteItem());
-        rootPane.getChildren().add(btn2);
+        rootPane.getChildren().add(btn2); //Button that launches delete function
     }
 }
