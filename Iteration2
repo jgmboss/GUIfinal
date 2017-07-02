@@ -42,7 +42,7 @@ public class guilit2
 
         txtFieldName = new TextField();
         txtFieldName.setLayoutX(50);
-        txtFieldName.setLayoutY(150);
+        txtFieldName.setLayoutY(100);
         txtFieldName.setPrefWidth(200);
         txtFieldName.setPromptText("Enter Name");
         rootPane.getChildren().add(txtFieldName); //Displays "Enter Name"
