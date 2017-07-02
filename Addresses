@@ -1,0 +1,42 @@
+public class Address   //public keyword means class is available to other classes in this program
+{
+    // class variables, private meaning accesible only within the declared class itself
+    private String number;
+    private String name;
+    private String email;
+   
+    //constructor method 
+    public Address(String number, String name, String email) 
+    {        
+        this.number = number;
+        this.name = name;
+        this.email = email;
+    
+    }
+
+    //override the toString() method, if you don't have this when outputting you get a reference to the object
+    // not the values of the object
+    @Override   
+    public String toString() 
+    {
+        return this.name + ", " + this.number + ", " +   this.email;
+    }
+
+    //methods - getters and setters
+    public String getNumber() { return number;}
+
+    public String getName() {return name;}
+
+    public String getEmail() {return email;}
+    
+    
+
+    //this keyword highlights that the attribute is being assigned to rather than the parameter being assigned to itself
+    public void setNumber(String number) {this.number = number;}
+
+    public void setName(String name){this.name = name;}
+
+    public void setEmail(String email){this.email = email;}
+    
+    
+}
