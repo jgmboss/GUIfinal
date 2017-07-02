@@ -39,6 +39,15 @@ public class guilit2
         stage.setWidth(1024);
         stage.setHeight(768);
         stage.show(); ////Whole thing for boarder of GUI and title 
+        
+        addressListView = new ListView<Address>();
+        addressListView.setLayoutX(700);
+        addressListView.setLayoutY(50);
+        addressListView.setOnMouseClicked((MouseEvent me) -> {
+                currentlySelectedAddress = addressListView.getSelectionModel().getSelectedItem();
+            });
+        rootPane.getChildren().add(addressListView);
+
 
         txtFieldName = new TextField();
         txtFieldName.setLayoutX(50);
@@ -82,25 +91,15 @@ public class guilit2
         String name = txtFieldName.getText();
         String email = txtFieldEmail.getText();
         addressArrList.add(new Address(name, number, email));
-
-        addressListView.getItems().clear();
-
-        for(Address address : addressArrList){ 
-            addressListView.getItems().add(address);
-        }
         updateListView();
     }
 
     private static void updateListView(){
-        Pane rootPane = new Pane();
-        addressListView = new ListView<Address>();
-        addressListView.setLayoutX(700);
-        addressListView.setLayoutY(50);
-        addressListView.setOnMouseClicked((MouseEvent me) ->{
-                currentlySelectedAddress = addressListView.getSelectionModel().getSelectedItem();
-            });
-        rootPane.getChildren().add(addressListView);
-        updateListView();
+         addressListView.getItems().clear();
+
+       for(Address address : addressArrList){ 
+            addressListView.getItems().add(address);
+        }
     }
 
     private static void deleteItem() {
