@@ -1,0 +1,191 @@
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.stage.Stage;
+import javafx.scene.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField; //must now import this for the textfield
+import javafx.scene.layout.Pane;
+import javafx.event.ActionEvent;
+import javafx.stage.WindowEvent;
+import javafx.scene.control.ListView;
+import java.util.ArrayList;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label; //needed to print something
+
+public class guilit3
+{
+    private static TextField txtFieldName;
+    private static TextField txtFieldNumber;
+    private static TextField txtFieldEmail;
+    private static ListView<Address> addressListView;
+    private static ArrayList<Address> addressArrList = new ArrayList<Address>();
+    private static Stage stage;
+    public static void main (String args[])//to start the GUI
+    {
+        launchFX();
+    }
+
+    private static void launchFX()
+    {
+        new JFXPanel();
+        Platform.runLater(() -> initialiseGUI());
+    }
+    private static Address currentlySelectedAddress = null;
+    private static void initialiseGUI()
+    {
+        Stage stage = new Stage();
+        stage.setTitle("Address book");
+        stage.setResizable(true);
+        Pane rootPane = new Pane();
+        stage.setScene(new Scene(rootPane));
+        stage.setWidth(480);
+        stage.setHeight(500);
+        stage.setOnCloseRequest((WindowEvent we) -> terminate());
+        stage.show(); ////Whole thing for boarder of GUI and title 
+
+        Label label = new Label("Address book"); //prints onto the GUI but doesnt make it a button
+        label.setLayoutX(150);
+        label.setLayoutY(25);
+        rootPane.getChildren().add(label);
+
+        addressListView = new ListView<Address>();
+        addressListView.setLayoutX(150);
+        addressListView.setLayoutY(50);
+        addressListView.setOnMouseClicked((MouseEvent me) -> {
+                currentlySelectedAddress = addressListView.getSelectionModel().getSelectedItem();
+            });
+        rootPane.getChildren().add(addressListView);
+
+        Button btn = new Button();
+        btn.setText("New");
+        btn.setLayoutX(50);
+        btn.setLayoutY(50);
+        btn.setOnAction((ActionEvent ae) -> addNewItem());
+        rootPane.getChildren().add(btn); //Button that launched add function called addNewItem
+
+        Button btn2 = new Button();
+        btn2.setText("Delete");
+        btn2.setLayoutX(50);
+        btn2.setLayoutY(80);
+        btn2.setOnAction((ActionEvent ae) -> deleteItem()); 
+        rootPane.getChildren().add(btn2); //Button that launched add function called deleteItem
+
+        Button btn3 = new Button();
+        btn3.setText("Edit");
+        btn3.setLayoutX(50);
+        btn3.setLayoutY(110);
+        btn3.setOnAction((ActionEvent ae) -> edit()); 
+        rootPane.getChildren().add(btn3); //Button that launched add function called deleteItem
+    }
+
+    private static void addNewItem() {
+        Stage stage = new Stage();
+        stage.setTitle("ADDRESS BOOK");
+        stage.setResizable(true);
+        Pane rootPane = new Pane();
+        stage.setScene(new Scene(rootPane));
+        stage.setWidth(700);
+        stage.setHeight(500);
+        stage.show(); ////Whole thing for boarder of GUI and title 
+
+        txtFieldName = new TextField();
+        txtFieldName.setLayoutX(50);
+        txtFieldName.setLayoutY(100);
+        txtFieldName.setPrefWidth(200);
+        txtFieldName.setPromptText("Enter Name");
+        rootPane.getChildren().add(txtFieldName); //Displays "Enter Name"
+
+        txtFieldNumber = new TextField();  
+        txtFieldNumber.setLayoutX(50);
+        txtFieldNumber.setLayoutY(150);
+        txtFieldNumber.setPrefWidth(200);
+        txtFieldNumber.setPromptText("Enter Number");
+        rootPane.getChildren().add(txtFieldNumber);  //Displays "Enter Number"
+
+        txtFieldEmail = new TextField();
+        txtFieldEmail.setLayoutX(50);
+        txtFieldEmail.setLayoutY(200);
+        txtFieldEmail.setPrefWidth(400);
+        txtFieldEmail.setPromptText("Enter Email");
+        rootPane.getChildren().add(txtFieldEmail);  //Displays "Enter Email"
+
+        Button btn = new Button();
+        btn.setText("ADD");
+        btn.setLayoutX(250);
+        btn.setLayoutY(425);
+        btn.setOnAction((ActionEvent ae) -> addNew());
+        rootPane.getChildren().add(btn); //Button that launched add function called addNewItem
+    }
+
+    private static void addNew() {
+        String number = txtFieldNumber.getText();
+        String name = txtFieldName.getText();
+        String email = txtFieldEmail.getText();
+        addressArrList.add(new Address(name, number, email));
+        updateListView();
+
+    }
+
+    private static void updateListView(){
+        addressListView.getItems().clear();
+
+        for(Address address : addressArrList){ 
+            addressListView.getItems().add(address);
+        }
+    }
+
+    private static void deleteItem() {
+        addressArrList.remove(currentlySelectedAddress);
+        updateListView();
+
+    }
+
+    private static void edit(){
+        addressArrList.remove(currentlySelectedAddress);
+        edit2();
+    }
+
+    private static void edit2(){     
+        stage.setTitle("Edit");
+        stage.setResizable(true);
+        Pane rootPane = new Pane();
+        stage.setScene(new Scene(rootPane));
+        stage.setWidth(700);
+        stage.setHeight(500);
+        stage.show(); // Whole thing for boarder of GUI and title 
+
+        txtFieldName = new TextField();
+        txtFieldName.setLayoutX(50);
+        txtFieldName.setLayoutY(100);
+        txtFieldName.setPrefWidth(200);
+        txtFieldName.setPromptText("Enter Name");
+        rootPane.getChildren().add(txtFieldName); //Displays "Enter Name"
+
+        txtFieldNumber = new TextField();  
+        txtFieldNumber.setLayoutX(50);
+        txtFieldNumber.setLayoutY(150);
+        txtFieldNumber.setPrefWidth(200);
+        txtFieldNumber.setPromptText("Enter Number");
+        rootPane.getChildren().add(txtFieldNumber);  //Displays "Enter Number"
+
+        txtFieldEmail = new TextField();
+        txtFieldEmail.setLayoutX(50);
+        txtFieldEmail.setLayoutY(200);
+        txtFieldEmail.setPrefWidth(400);
+        txtFieldEmail.setPromptText("Enter Email");
+        rootPane.getChildren().add(txtFieldEmail);  //Displays "Enter Email"
+
+        Button btn = new Button();
+        btn.setText("ENTER");
+        btn.setLayoutX(250);
+        btn.setLayoutY(425);
+        btn.setOnAction((ActionEvent ae) -> (addNew()));
+        rootPane.getChildren().add(btn); //Button that launched add function called addNewItem
+
+    }
+
+    private static void terminate(){
+        System.exit(0);
+    }
+
+}
